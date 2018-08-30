@@ -3,6 +3,9 @@
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-redux": "^5.0.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
     "styled-components": "^2.1.0"
   },
   "devDependencies": {
