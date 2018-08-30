@@ -1,0 +1,16 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "semi": 2,
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-filename-extension": 0
+  }, 
+  "extends": "airbnb"
+}
