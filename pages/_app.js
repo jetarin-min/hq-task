@@ -1,18 +1,12 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import { Provider } from 'react-redux';
 
 import withReduxStore from '../redux/withRedux';
 
-const Layout = (props) => {
-  const { children } = props;
-  return (
-    <div className="layout">
-      <h1>ggwp</h1>
-      {children}
-    </div>
-  );
-};
+import Nav from '../Components/Nav';
+import Footer from '../Components/Footer';
 
 class MyApp extends App {
   render() {
@@ -20,9 +14,20 @@ class MyApp extends App {
     return (
       <Container>
         <Provider store={reduxStore}>
-          <Layout>
+          <div>
+            <Head>
+              <style>
+                {`
+                  body {
+                    margin: 0;
+                  }
+                `}
+              </style>
+            </Head>
+            <Nav />
             <Component {...pageProps} />
-          </Layout>
+            <Footer />
+          </div>
         </Provider>
       </Container>
     );

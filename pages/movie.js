@@ -4,19 +4,17 @@ import styled from 'styled-components';
 
 import { actions } from '../redux/reducers/movie';
 
-import MovieCard from '../Components/MovieCard';
-
 const Title = styled.h1`
   color: red;
   font-size: 50px;
 `;
 
-class Home extends React.Component {
+class MovieDetail extends React.Component {
   // static getInitialProps({ reduxStore, req }) {
-  static async getInitialProps({ reduxStore }) {
+  static async getInitialProps({ reduxStore, query }) {
     // const isServer = !!req;
     // reduxStore.dispatch(serverRenderClock(isServer));
-    await reduxStore.dispatch(actions.getMovies());
+    await reduxStore.dispatch(actions.getMovieDetail(query.id));
     return {};
   }
 
@@ -31,15 +29,11 @@ class Home extends React.Component {
   }
 
   render() {
-    const { count, movies } = this.props;
+    const { movie } = this.props;
     return (
       <div>
-        <Title>Home</Title>
-        <div>{count}</div>
-        <a onClick={this.handleClick}>click me</a>
-        <div>
-          {movies && movies.map(movie => <MovieCard {...movie} key={movie.id} />)}
-        </div>
+        <Title>Movie Detail</Title>
+        <div>{(movie && movie.title) || 'Untitled'}</div>
       </div>
     );
   }
@@ -47,9 +41,8 @@ class Home extends React.Component {
 
 export default connect(
   ({ movie }) => ({
-    movies: movie.movies,
-    count: movie.count,
+    movie: movie.movie,
   }), {
-    ...actions,
+    getMovieDetail: actions.getMovieDetail,
   },
-)(Home);
+)(MovieDetail);
