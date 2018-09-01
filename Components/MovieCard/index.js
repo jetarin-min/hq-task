@@ -10,6 +10,11 @@ const Container = styled.div`
   box-sizing: border-box;
   border: 1px solid ${props => props.theme.borderGray};
   box-shadow: 1px 2px 4px rgba(0, 0, 0, .3);
+  &:hover {
+    .more-detail {
+      color: ${props => props.theme.yellow};
+    }
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -76,27 +81,38 @@ const Image = styled.img.attrs({
   height: auto;
 `;
 
+const MoreDetail = styled.p.attrs({
+  className: 'more-detail',
+})`
+  colors: ${props => props.theme.borderGray};
+  transition: color .4s;
+  text-align: right;
+  margin: 12px 0 0;
+`;
+
 const MovieCard = props => {
   const { title, id, description, cover, rating } = props;
   return (
-    <Container>
-      <ImageContainer>
-        <Image cover={getMedia(cover, 'cardCover')} />
-      </ImageContainer>
-      <ContentContainer>
-        <Title>{title || 'Undefined'}</Title>
-        <RatingContainer>
-          <Rating rating={rating} />
-        </RatingContainer>
-        <Description>{description || 'Undefined'}</Description>
-        <Link
-          href={{ pathname: '/movie', query: { id } }}
-          as={`/movie/${id}`}
-        >
-          <a>More Detail</a>
-        </Link>
-      </ContentContainer>
-    </Container>
+    <Link
+      href={{ pathname: '/movie', query: { id } }}
+      as={`/movie/${id}`}
+    >
+      <a>
+        <Container>
+          <ImageContainer>
+            <Image cover={getMedia(cover, 'cardCover')} />
+          </ImageContainer>
+          <ContentContainer>
+            <Title>{title || 'Undefined'}</Title>
+            <RatingContainer>
+              <Rating rating={rating} />
+            </RatingContainer>
+            <Description>{description || 'Undefined'}</Description>
+            <MoreDetail>More Detail</MoreDetail>
+          </ContentContainer>
+        </Container>
+      </a>
+    </Link>
   );
 };
 export default MovieCard;

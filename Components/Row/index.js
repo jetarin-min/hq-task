@@ -1,12 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import MovieCard from '../MovieCard';
 
 const ScrollContainer = styled.div`
-  margin-top: 0px;
-  margin-right: -8px;
-  margin-left: -8px;
   position: relative;
+  @media (min-width: 1201px) {
+    padding: 0 30px;
+  }
 `;
 
 const ScrollPadding = styled.div`
@@ -22,6 +22,7 @@ const Scroll = styled.div`
   white-space: nowrap !important;
   overflow-x: visible;
   transition: transform .5s;            
+  padding: 12px 0;
   @media (max-width: 1200px) {
     overflow-x: auto;
     overflow-y: hidden;
@@ -80,6 +81,82 @@ const Gradient = styled.div`
     display: none !important;
   }
 `;
+const moveLeft = keyframes`
+  0% {
+    left: 0;
+  }
+  28% {
+    left: -6px;
+  }
+  100% {
+    left: 0;
+  }
+`;
+const moveRight = keyframes`
+  0% {
+    right: 0;
+  }
+  28% {
+    right: -6px;
+  }
+  100% {
+    right: 0;
+  }
+`;
+
+const Chevron = styled.div`
+  position: absolute;
+  margin: auto;
+  width: 30px;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+  ${props => (props.direction === 'left'
+    ? `
+    left: 0;
+    &:hover {
+      animation: ${moveLeft} 1s infinite;
+    }
+    `
+    : `
+    right: 0;
+    &:hover {
+      animation: ${moveRight} 1s infinite;
+    }
+  `
+  )}
+  &::before {
+    border-style: solid;
+    border-color: ${props => props.theme.gray};
+    border-width: 4px 4px 0 0;
+    content: '';
+    display: inline-block;
+    height: 18px;
+    position: relative;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    ${props => (props.direction === 'left'
+    ? `
+    transform: rotate(-135deg);
+    left: 8px;
+    `
+    : `
+    transform: rotate(45deg);
+    right: 8px;
+    `
+  )}
+  }
+  @media (max-width: 1200px) {
+    display: none !important;
+  }
+`;
 
 class Row extends React.Component {
   constructor(props) {
@@ -91,8 +168,13 @@ class Row extends React.Component {
   }
 
   go(direction = 'left') {
-    console.log(direction);
-    this.setState({ x: 0 });
+    const { x } = this.state;
+    const { items } = this.props;
+    if (direction === 'right' && x + (items.length * 25) > 100) {
+      this.setState({ x: x - 25 });
+    } else if (direction === 'left' && x < 0) {
+      this.setState({ x: x + 25 });
+    }
   }
 
   render() {
@@ -111,16 +193,8 @@ class Row extends React.Component {
           <Gradient direction="left" />
           <Gradient direction="right" />
         </ScrollPadding>
-        {/*
-          lists.length > 0 &&
-          !lists[0] &&
-          <a className="left-arrow" onClick={() => this.go('left')} />
-        */}
-        {/*
-          lists.length > 0 &&
-          !lists[lists.length - 1] &&
-          <a className="right-arrow" onClick={() => this.go('right')} />
-        */}
+        {x < 0 && <Chevron direction="left" onClick={() => this.go('left')} />}
+        {x + (items.length * 25) > 100 && <Chevron direction="right" onClick={() => this.go('right')} />}
       </ScrollContainer>
     );
   }

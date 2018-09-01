@@ -1,3 +1,5 @@
+import colors from './colors';
+
 export default `
   body {
     margin: 0;
@@ -31,5 +33,9 @@ export default `
   a {
     text-decoration: none;
     font-size: 16px;
+    color: ${colors.borderGray};
   }
+  a:visited {
+    color: ${colors.borderGray};
+  } 
 `;
