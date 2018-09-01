@@ -14,7 +14,12 @@ export default class MyDocument extends Document {
       <html lang="en">
         <Head>
           <title>My page</title>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+          />
           {this.props.styleTags}
+          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
         </Head>
         <body>
           <Main />

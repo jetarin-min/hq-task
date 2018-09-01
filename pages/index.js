@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import { actions } from '../redux/reducers/movie';
 
-import MovieCard from '../Components/MovieCard';
+import Row from '../Components/Row';
+import { Inner } from '../Components/Global';
 
 const Title = styled.h1`
   color: red;
@@ -34,12 +35,12 @@ class Home extends React.Component {
     const { count, movies } = this.props;
     return (
       <div>
-        <Title>Home</Title>
-        <div>{count}</div>
-        <a onClick={this.handleClick}>click me</a>
-        <div>
-          {movies && movies.map(movie => <MovieCard {...movie} key={movie.id} />)}
-        </div>
+        <Inner>
+          <Title>Home</Title>
+          <div>{count}</div>
+          <a onClick={this.handleClick}>click me</a>
+          <Row items={movies} />
+        </Inner>
       </div>
     );
   }

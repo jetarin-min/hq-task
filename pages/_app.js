@@ -2,11 +2,14 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 
 import withReduxStore from '../redux/withRedux';
+import colors from '../theme/colors';
 
 import Nav from '../Components/Nav';
 import Footer from '../Components/Footer';
+import globalStyle from '../theme/globalStyle';
 
 class MyApp extends App {
   render() {
@@ -14,20 +17,18 @@ class MyApp extends App {
     return (
       <Container>
         <Provider store={reduxStore}>
-          <div>
-            <Head>
-              <style>
-                {`
-                  body {
-                    margin: 0;
-                  }
-                `}
-              </style>
-            </Head>
-            <Nav />
-            <Component {...pageProps} />
-            <Footer />
-          </div>
+          <ThemeProvider theme={colors}>
+            <div>
+              <Head>
+                <style>
+                  {globalStyle}
+                </style>
+              </Head>
+              <Nav />
+              <Component {...pageProps} />
+              <Footer />
+            </div>
+          </ThemeProvider>
         </Provider>
       </Container>
     );
