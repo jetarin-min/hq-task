@@ -1,19 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import Router from 'next/router';
 
 import { actions } from '../../redux/reducers/app';
+
+import Spinner from '../Spinner';
+
+const SpinnerContainer = styled.div`
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  top: 0;
+  left: 0;
+  z-index: 200;
+`;
 
 class LoadingScreen extends React.Component {
   componentDidMount() {
     const { loading, loaded } = this.props;
     Router.onRouteChangeStart = () => {
-      console.log('START LOAD');
       loading();
     };
     Router.onRouteChangeComplete = () => {
-      console.log('LOAD DONE');
       loaded();
     };
   }
@@ -22,7 +32,11 @@ class LoadingScreen extends React.Component {
     const { isLoading } = this.props;
     return (
       <div>
-        {isLoading && 'Loading......'}
+        {isLoading && (
+          <SpinnerContainer>
+            <Spinner />
+          </SpinnerContainer>
+        )}
       </div>
     );
   }

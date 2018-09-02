@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 import styled from 'styled-components';
 import Rating from '../Rating';
 import Gallery from '../Gallery';
+import Spinner from '../Spinner';
 
 moment.tz.setDefault('Asia/Bangkok');
 
@@ -66,13 +67,17 @@ const OrderButton = styled.div`
   @media (max-width: 700px) {
     height: 39px;
     padding: 10px;
-    width: 180px;
     margin: 20px auto 0;
   }
 `;
 
 const ReleaseDate = styled.p`
   color: ${props => props.theme.borderGray};
+`;
+
+const SpinnerContainer = styled.div`
+  position: relative;
+  height: 100px;
 `;
 
 const MovieInfo = (props) => {
@@ -94,10 +99,16 @@ const MovieInfo = (props) => {
         <Detail>
           <span>{description}</span>
         </Detail>
-        {isSeatLoading && 'Loading seat...'}
-        {!isSeatLoading && seat.types && seat.types.length > 0
-          ? seat.types.map(s => <OrderButton key={s.title}>{`${s.title} - ${s.amount} ${s.currency}`}</OrderButton>)
-          : <h4>No seat available right now :(</h4>
+        {isSeatLoading && (
+          <SpinnerContainer>
+            <Spinner />
+          </SpinnerContainer>
+        )}
+        {!isSeatLoading && seat.types
+          && seat.types.map(s => <OrderButton key={s.title}>{`${s.title} - ${s.amount} ${s.currency}`}</OrderButton>)
+        }
+        {!isSeatLoading
+          && seat.types && seat.types.length <= 0 && <h4>No seat available right now :(</h4>
         }
       </ContentContainer>
     </MainContainer>

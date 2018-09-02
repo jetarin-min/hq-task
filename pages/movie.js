@@ -49,6 +49,8 @@ class MovieDetail extends React.Component {
         <Inner isPadding>
           <MovieInfo {...movie} seat={seat} isSeatLoading={isSeatLoading} />
           <SimilarHeader>Similar Movies</SimilarHeader>
+        </Inner>
+        <Inner>
           <Row items={movies.filter(m => m.id !== movie.id)} />
         </Inner>
       </div>
