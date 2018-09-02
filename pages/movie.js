@@ -4,36 +4,53 @@ import styled from 'styled-components';
 
 import { actions } from '../redux/reducers/movie';
 
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
+import { Inner } from '../Components/Global';
+import MovieInfo from '../Components/MovieInfo';
+import Row from '../Components/Row';
+
+const SimilarHeader = styled.h2`
+  text-align: center;
 `;
 
 class MovieDetail extends React.Component {
-  // static getInitialProps({ reduxStore, req }) {
   static async getInitialProps({ reduxStore, query }) {
-    // const isServer = !!req;
-    // reduxStore.dispatch(serverRenderClock(isServer));
-    await reduxStore.dispatch(actions.getMovieDetail(query.id));
+    await Promise.all([
+      reduxStore.dispatch(actions.getMovieDetail(query.id)),
+      reduxStore.dispatch(actions.getMovies()), // Act as similar movies for this page
+    ]);
     return {};
   }
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.loadSeat = this.loadSeat.bind(this);
   }
 
-  handleClick() {
-    const { plus } = this.props;
-    plus();
+  componentDidMount() {
+    this.loadSeat();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { props } = this;
+    if (prevProps.movie.id !== props.movie.id) {
+      this.loadSeat();
+    }
+  }
+
+  loadSeat() {
+    const { getSeat, movie } = this.props;
+    getSeat(movie.id);
   }
 
   render() {
-    const { movie } = this.props;
+    const { movie, movies, seat, isSeatLoading } = this.props;
     return (
       <div>
-        <Title>Movie Detail</Title>
-        <div>{(movie && movie.title) || 'Untitled'}</div>
+        <Inner isPadding>
+          <MovieInfo {...movie} seat={seat} isSeatLoading={isSeatLoading} />
+          <SimilarHeader>Similar Movies</SimilarHeader>
+          <Row items={movies.filter(m => m.id !== movie.id)} />
+        </Inner>
       </div>
     );
   }
@@ -42,7 +59,10 @@ class MovieDetail extends React.Component {
 export default connect(
   ({ movie }) => ({
     movie: movie.movie,
+    movies: movie.movies, // Act as similar movies
+    seat: movie.seat,
+    isSeatLoading: movie.isSeatLoading,
   }), {
-    getMovieDetail: actions.getMovieDetail,
+    getSeat: actions.getSeat,
   },
 )(MovieDetail);

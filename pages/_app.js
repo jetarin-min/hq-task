@@ -9,6 +9,7 @@ import colors from '../theme/colors';
 
 import Nav from '../Components/Nav';
 import Footer from '../Components/Footer';
+import LoadingScreen from '../Components/LoadingScreen';
 import globalStyle from '../theme/globalStyle';
 
 class MyApp extends App {
@@ -19,6 +20,7 @@ class MyApp extends App {
         <Provider store={reduxStore}>
           <ThemeProvider theme={colors}>
             <div>
+              <LoadingScreen />
               <Head>
                 <style>
                   {globalStyle}

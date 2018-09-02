@@ -8,8 +8,7 @@ import Row from '../Components/Row';
 import { Inner } from '../Components/Global';
 
 const Title = styled.h1`
-  color: red;
-  font-size: 50px;
+  text-align: center;
 `;
 
 class Home extends React.Component {
@@ -21,24 +20,12 @@ class Home extends React.Component {
     return {};
   }
 
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    const { plus } = this.props;
-    plus();
-  }
-
   render() {
-    const { count, movies } = this.props;
+    const { movies } = this.props;
     return (
       <div>
         <Inner>
-          <Title>Home</Title>
-          <div>{count}</div>
-          <a onClick={this.handleClick}>click me</a>
+          <Title>Our Movies</Title>
           <Row items={movies} />
         </Inner>
       </div>
@@ -49,8 +36,6 @@ class Home extends React.Component {
 export default connect(
   ({ movie }) => ({
     movies: movie.movies,
-    count: movie.count,
-  }), {
-    ...actions,
-  },
+  }),
+  {},
 )(Home);

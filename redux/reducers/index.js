@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 
-// import app from './app';
-// import home from './home';
-// import product from './product';
+import app from './app';
 import movie from './movie';
 
 export default combineReducers({
+  app,
   movie,
 });
