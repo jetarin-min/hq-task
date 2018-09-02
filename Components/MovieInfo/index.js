@@ -54,7 +54,7 @@ const Detail = styled.p`
 
 const OrderButton = styled.div`
   height: 51px;
-  width: 200px;
+  width: 220px;
   background-color: ${props => props.theme.yellow};
   color: ${props => props.theme.white};
   font-weight: 500;
@@ -68,6 +68,7 @@ const OrderButton = styled.div`
     height: 39px;
     padding: 10px;
     margin: 20px auto 0;
+    width: 200px;
   }
 `;
 
@@ -81,7 +82,7 @@ const SpinnerContainer = styled.div`
 `;
 
 const MovieInfo = (props) => {
-  const { type, title, description, cover, rating, releaseDate, seat, isSeatLoading } = props;
+  const { type, title, description, cover, rating, releaseDate, seat, isSeatLoading, onPurchase } = props;
   return (
     <MainContainer>
       <GalleryContainer>
@@ -105,7 +106,7 @@ const MovieInfo = (props) => {
           </SpinnerContainer>
         )}
         {!isSeatLoading && seat.types
-          && seat.types.map(s => <OrderButton key={s.title}>{`${s.title} - ${s.amount} ${s.currency}`}</OrderButton>)
+          && seat.types.map(s => <OrderButton key={s.title} onClick={() => onPurchase(s.id)}>{`${s.title} - ${s.amount} ${s.currency}`}</OrderButton>)
         }
         {!isSeatLoading
           && seat.types && seat.types.length <= 0 && <h4>No seat available right now :(</h4>

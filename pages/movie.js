@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { actions } from '../redux/reducers/movie';
+import { actions as appActions } from '../redux/reducers/app';
 
 import { Inner } from '../Components/Global';
 import MovieInfo from '../Components/MovieInfo';
@@ -24,6 +25,7 @@ class MovieDetail extends React.Component {
   constructor(props) {
     super(props);
     this.loadSeat = this.loadSeat.bind(this);
+    this.handlePurchase = this.handlePurchase.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +39,12 @@ class MovieDetail extends React.Component {
     }
   }
 
+  handlePurchase(seatId) {
+    const { seat, pushToast } = this.props;
+    const selectedSeat = seat && seat.types.find(s => s.id === seatId);
+    pushToast(true, `${selectedSeat.title} has been purchased (${selectedSeat.amount} ${selectedSeat.currency})`);
+  }
+
   loadSeat() {
     const { getSeat, movie } = this.props;
     getSeat(movie.id);
@@ -47,7 +55,12 @@ class MovieDetail extends React.Component {
     return (
       <div>
         <Inner isPadding>
-          <MovieInfo {...movie} seat={seat} isSeatLoading={isSeatLoading} />
+          <MovieInfo
+            {...movie}
+            seat={seat}
+            isSeatLoading={isSeatLoading}
+            onPurchase={this.handlePurchase}
+          />
           <SimilarHeader>Similar Movies</SimilarHeader>
         </Inner>
         <Inner>
@@ -66,5 +79,6 @@ export default connect(
     isSeatLoading: movie.isSeatLoading,
   }), {
     getSeat: actions.getSeat,
+    pushToast: appActions.pushToast,
   },
 )(MovieDetail);

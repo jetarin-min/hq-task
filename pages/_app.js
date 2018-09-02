@@ -9,6 +9,7 @@ import colors from '../theme/colors';
 
 import Nav from '../Components/Nav';
 import Footer from '../Components/Footer';
+import Toast from '../Components/Toast';
 import LoadingScreen from '../Components/LoadingScreen';
 import globalStyle from '../theme/globalStyle';
 
@@ -21,6 +22,7 @@ class MyApp extends App {
           <ThemeProvider theme={colors}>
             <div>
               <LoadingScreen />
+              <Toast />
               <Head>
                 <style>
                   {globalStyle}
