@@ -17,6 +17,7 @@ class Home extends React.Component {
     // const isServer = !!req;
     // reduxStore.dispatch(serverRenderClock(isServer));
     await reduxStore.dispatch(actions.getMovies());
+    await reduxStore.dispatch(actions.loadMovies());
     return {};
   }
 

@@ -1,22 +1,26 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import promiseMiddleware from './middlewares/promiseMiddleware';
 import reducer from './reducers';
+import rootSaga from './sagas';
 import configs from '../configs';
 
 const { isProduction } = configs;
+const sagaMiddleware = createSagaMiddleware();
 
 export default initialStore => {
-  const storeCreator = (!isProduction && typeof window !== 'undefined' && window && window.devToolsExtension)
+  const middlewares = (!isProduction && typeof window !== 'undefined' && window && window.devToolsExtension)
     ? compose(
-      applyMiddleware(thunkMiddleware, promiseMiddleware),
+      applyMiddleware(promiseMiddleware, sagaMiddleware),
       window.devToolsExtension(),
     )
-    : compose(applyMiddleware(thunkMiddleware, promiseMiddleware));
-  return createStore(
+    : compose(applyMiddleware(promiseMiddleware, sagaMiddleware));
+  const store = createStore(
     reducer,
     initialStore,
-    storeCreator,
+    middlewares,
   );
+  sagaMiddleware.run(rootSaga);
+  return store;
 };

@@ -2,9 +2,11 @@ import { constantCreator } from '../../utils/constantCreator';
 import api from '../../utils/api';
 
 const constant = constantCreator('movie');
-const GET_MOVIES = constant('GET_MOVIES', true);
-const GET_MOVIE_DETAIL = constant('GET_MOVIES_DETAIL', true);
-const GET_SEAT = constant('GET_SEAT', true);
+export const LOAD_MOVIES = constant('LOAD_MOVIES', true);
+//
+export const GET_MOVIES = constant('GET_MOVIES', true);
+export const GET_MOVIE_DETAIL = constant('GET_MOVIES_DETAIL', true);
+export const GET_SEAT = constant('GET_SEAT', true);
 
 const initialState = {
   movies: [],
@@ -96,5 +98,9 @@ export const actions = {
   getSeat: id => ({
     type: GET_SEAT,
     promise: api.get(`/seats/${id}`),
+  }),
+  loadMovies: () => ({
+    type: LOAD_MOVIES.PENDING,
+    name: 'kkk',
   }),
 };
