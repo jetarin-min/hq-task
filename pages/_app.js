@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
-// import withReduxStore from '../redux/withRedux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import colors from '../theme/colors';
@@ -49,5 +48,4 @@ class MyApp extends App {
     );
   }
 }
-// export default withReduxStore(MyApp);
 export default withRedux(initializeStore)(withReduxSaga({ async: true })(MyApp));

@@ -1,4 +1,4 @@
-export default () => next => action => {
+export default () => next => action => { // Deprecated
   if (!action.promise) {
     return next(action);
   }
