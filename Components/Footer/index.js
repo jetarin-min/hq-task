@@ -4,6 +4,11 @@ import { Inner } from '../Global';
 const MainContainer = styled.div`
   background-color: gray;
   height: 80px;
+  p {
+    color: ${props => props.theme.white};
+    font-weight: 500;
+    padding: 30px;
+  }
 `;
 
 const Footer = () => (

@@ -5,6 +5,11 @@ import { Inner } from '../Global';
 const MainContainer = styled.div`
   background-color: gray;
   height: 80px;
+  a {
+    font-weight: 500;
+    display: block;
+    padding: 30px;
+  }
 `;
 
 const Nav = () => (

@@ -69,6 +69,7 @@ const RatingContainer = styled.div`
 
 const Image = styled.img.attrs({
   src: props => props.cover,
+  alt: props => props.alt,
 })`
   display: block;
   position: absolute;
@@ -100,7 +101,7 @@ const MovieCard = props => {
       <a>
         <Container>
           <ImageContainer>
-            <Image cover={getMedia(cover, 'cardCover')} />
+            <Image cover={getMedia(cover, 'cardCover')} alt={title} />
           </ImageContainer>
           <ContentContainer>
             <Title>{title || 'Undefined'}</Title>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Head from 'next/head';
 
 import { actions } from '../redux/reducers/movie';
+import getMedia from '../utils/getMedia';
+import getMovieJsonLd from '../utils/getMovieJsonLd';
 
 import { Inner } from '../Components/Global';
 import MovieInfo from '../Components/MovieInfo';
@@ -35,6 +38,14 @@ class MovieDetail extends React.Component {
     const { movie, movies, seat, isSeatLoading, isMovieLoading, isMoviesLoading, isPurchasing } = this.props;
     return (
       <div>
+        <Head>
+          <title>{`${movie.title} - Movie Ticket`}</title>
+          <meta name="description" content={movie.metaDescription || movie.description} />
+          <meta name="keywords" context={movie.metaKeywords || movie.title} />
+          <meta property="og:description" content={movie.metaDescription || movie.description} />
+          <meta property="og:image" content={getMedia(movie.cover, 'detailCover')} />
+        </Head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: getMovieJsonLd(movie, seat) }} />
         <Inner isPadding>
           <MovieInfo
             {...movie}

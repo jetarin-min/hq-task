@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import Head from 'next/head';
 
 import { actions } from '../redux/reducers/movie';
 
@@ -22,6 +23,9 @@ class Home extends React.Component {
     const { movies, isMoviesLoading } = this.props;
     return (
       <div>
+        <Head>
+          <title>Home - Movie Ticket</title>
+        </Head>
         <Inner>
           <Title>Our Movies</Title>
           <Row items={movies} isLoading={isMoviesLoading} />
