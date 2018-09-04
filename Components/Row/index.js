@@ -194,7 +194,7 @@ class Row extends React.Component {
     return (
       <ScrollContainer>
         <ScrollPadding>
-          <Scroll x={x}>
+          <Scroll x={x} data-test-tag="row-scroll">
             {items.map(item => (
               <CardContainer key={`row-${item.id}`}>
                 <MovieCard {...item} key={item.id} />

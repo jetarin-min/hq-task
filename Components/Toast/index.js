@@ -17,7 +17,8 @@ const ToastContainer = styled.div`
   color: ${props => props.theme.white};
   right: ${props => (props.isShow ? '80px' : '-400px')};
   opacity: ${props => (props.isShow ? '1' : '0')};
-  transition: top 0.4s, right 0.4s, opacity 0.4s;
+  visiblity: ${props => (props.isShow ? 'visible' : 'hidden')};
+  transition: top 0.4s, right 0.4s, opacity 0.4s, visibility: 0.4s;
   @media(max-width: 700px) {
     width: 100%;
     right: 0;
@@ -51,7 +52,7 @@ class Toast extends React.Component {
   render() {
     const { isShowToast, toastMessage } = this.props;
     return (
-      <ToastContainer isShow={isShowToast} onClick={this.closeToast}>{toastMessage}</ToastContainer>
+      <ToastContainer isShow={isShowToast} onClick={this.closeToast} data-test-tag="toast-message">{toastMessage}</ToastContainer>
     );
   }
 }

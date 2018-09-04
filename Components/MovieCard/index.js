@@ -104,7 +104,7 @@ const MovieCard = props => {
             <Image cover={getMedia(cover, 'cardCover')} alt={title} />
           </ImageContainer>
           <ContentContainer>
-            <Title>{title || 'Undefined'}</Title>
+            <Title data-test-tag="card-title">{title || 'Undefined'}</Title>
             <RatingContainer>
               <Rating rating={rating} />
             </RatingContainer>

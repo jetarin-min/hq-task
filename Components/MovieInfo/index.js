@@ -87,12 +87,12 @@ const MovieInfo = (props) => {
           <span>{description}</span>
         </Detail>
         {isSeatLoading && (
-          <SpinnerContainer>
+          <SpinnerContainer data-test-tag="movie-info-spinner">
             <Spinner />
           </SpinnerContainer>
         )}
         {!isSeatLoading && seat.types
-          && seat.types.map(s => <Button key={s.title} onClick={() => onPurchase(s.id)}>{`${s.title} - ${s.amount} ${s.currency}`}</Button>)
+          && seat.types.map(s => <Button key={s.title} onClick={() => onPurchase(s.id)} data-test-tag="purchase-button">{`${s.title} - ${s.amount} ${s.currency}`}</Button>)
         }
         {!isSeatLoading
           && seat.types && seat.types.length <= 0 && <h4>No seat available right now :(</h4>
