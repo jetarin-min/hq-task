@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Rating from '../Rating';
 import Gallery from '../Gallery';
 import Spinner from '../Spinner';
+import { Button } from '../Global';
 
 moment.tz.setDefault('Asia/Bangkok');
 
@@ -52,37 +53,22 @@ const Detail = styled.p`
   }
 `;
 
-const OrderButton = styled.div`
-  height: 51px;
-  width: 220px;
-  background-color: ${props => props.theme.yellow};
-  color: ${props => props.theme.white};
-  font-weight: 500;
-  display: block;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 16px;
-  margin: 20px 0 0;
-  cursor: pointer;
-  @media (max-width: 700px) {
-    height: 39px;
-    padding: 10px;
-    margin: 20px auto 0;
-    width: 200px;
-  }
-`;
-
 const ReleaseDate = styled.p`
   color: ${props => props.theme.borderGray};
 `;
 
 const SpinnerContainer = styled.div`
   position: relative;
-  height: 100px;
+  height: 300px;
 `;
 
 const MovieInfo = (props) => {
-  const { type, title, description, cover, rating, releaseDate, seat, isSeatLoading, onPurchase } = props;
+  const { type, title, description, cover, rating, releaseDate, seat, isSeatLoading, onPurchase, isLoading } = props;
+  if (isLoading) {
+    return (
+      <SpinnerContainer><Spinner /></SpinnerContainer>
+    );
+  }
   return (
     <MainContainer>
       <GalleryContainer>
@@ -106,7 +92,7 @@ const MovieInfo = (props) => {
           </SpinnerContainer>
         )}
         {!isSeatLoading && seat.types
-          && seat.types.map(s => <OrderButton key={s.title} onClick={() => onPurchase(s.id)}>{`${s.title} - ${s.amount} ${s.currency}`}</OrderButton>)
+          && seat.types.map(s => <Button key={s.title} onClick={() => onPurchase(s.id)}>{`${s.title} - ${s.amount} ${s.currency}`}</Button>)
         }
         {!isSeatLoading
           && seat.types && seat.types.length <= 0 && <h4>No seat available right now :(</h4>

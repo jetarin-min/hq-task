@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import MovieCard from '../MovieCard';
+import Spinner from '../Spinner';
 
 const ScrollContainer = styled.div`
   position: relative;
@@ -158,6 +159,11 @@ const Chevron = styled.div`
   }
 `;
 
+const SpinnerContainer = styled.div`
+  position: relative;
+  height: 300px;
+`;
+
 class Row extends React.Component {
   constructor(props) {
     super(props);
@@ -178,8 +184,13 @@ class Row extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, isLoading } = this.props;
     const { x } = this.state;
+    if (isLoading) {
+      return (
+        <SpinnerContainer><Spinner /></SpinnerContainer>
+      );
+    }
     return (
       <ScrollContainer>
         <ScrollPadding>
