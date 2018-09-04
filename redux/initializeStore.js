@@ -21,6 +21,10 @@ export default initialStore => {
     initialStore,
     middlewares,
   );
-  sagaMiddleware.run(rootSaga);
+  store.runSagaTask = () => {
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+  };
+  store.runSagaTask();
+  // sagaMiddleware.run(rootSaga);
   return store;
 };

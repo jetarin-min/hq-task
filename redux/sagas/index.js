@@ -1,17 +1,14 @@
-import { takeLatest } from 'redux-saga';
-import { loadMovies } from './movie';
-// import { loadDashboardSequenced} from './loadDashboardSequenced';
-// import {loadDashboardNonSequenced} from './loadDashboardNonSequenced';
-// import {loadDashboardNonSequencedNonBlocking, isolatedForecast, isolatedFlight } from './loadDashboardNonSequencedNonBlocking';
+import { all, takeLatest } from 'redux-saga/effects';
 
-import { LOAD_MOVIES } from '../reducers/movie';
+import { loadMovies, loadMovieDetail, loadSeats } from './movie';
+import { LOAD_MOVIES, LOAD_MOVIE_DETAIL, LOAD_SEATS } from '../reducers/movie';
 
 function* rootSaga() {
-  yield [
-    // takeLatest('LOAD_DASHBOARD_NON_SEQUENCED', loadDashboardNonSequenced),
-    // takeLatest('LOAD_DASHBOARD_NON_SEQUENCED_NON_BLOCKING', loadDashboardNonSequencedNonBlocking),
+  yield all([
     takeLatest(LOAD_MOVIES.PENDING, loadMovies),
-  ];
+    takeLatest(LOAD_MOVIE_DETAIL.PENDING, loadMovieDetail),
+    takeLatest(LOAD_SEATS.PENDING, loadSeats),
+  ]);
 }
 
 export default rootSaga;

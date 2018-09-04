@@ -3,6 +3,8 @@ import api from '../../utils/api';
 
 const constant = constantCreator('movie');
 export const LOAD_MOVIES = constant('LOAD_MOVIES', true);
+export const LOAD_MOVIE_DETAIL = constant('LOAD_MOVIE_DETAIL', true);
+export const LOAD_SEATS = constant('LOAD_SEATS', true);
 //
 export const GET_MOVIES = constant('GET_MOVIES', true);
 export const GET_MOVIE_DETAIL = constant('GET_MOVIES_DETAIL', true);
@@ -79,6 +81,64 @@ const reducer = (state = initialState, action) => {
         isSeatLoading: false,
         errorSeat: action.error,
       };
+    //
+    case LOAD_MOVIES.PENDING:
+      return {
+        ...state,
+        isMoviesLoading: true,
+        errorMovies: null,
+      };
+    case LOAD_MOVIES.RESOLVED:
+      return {
+        ...state,
+        movies: action.data,
+        isMoviesLoading: false,
+        errorMovies: null,
+      };
+    case LOAD_MOVIES.REJECTED:
+      return {
+        ...state,
+        isMoviesLoading: false,
+        errorMovies: action.error,
+      };
+    case LOAD_MOVIE_DETAIL.PENDING:
+      return {
+        ...state,
+        isMovieLoading: true,
+        errorMovie: null,
+      };
+    case LOAD_MOVIE_DETAIL.RESOLVED:
+      return {
+        ...state,
+        movie: action.data,
+        isMovieLoading: false,
+        errorMovie: null,
+      };
+    case LOAD_MOVIE_DETAIL.REJECTED:
+      return {
+        ...state,
+        isMovieLoading: false,
+        errorMovie: action.error,
+      };
+    case LOAD_SEATS.PENDING:
+      return {
+        ...state,
+        isSeatLoading: true,
+        errorSeat: null,
+      };
+    case LOAD_SEATS.RESOLVED:
+      return {
+        ...state,
+        seat: action.data,
+        isSeatLoading: false,
+        errorSeat: null,
+      };
+    case LOAD_SEATS.REJECTED:
+      return {
+        ...state,
+        isSeatLoading: false,
+        errorSeat: action.error,
+      };
     default:
       return state;
   }
@@ -99,8 +159,16 @@ export const actions = {
     type: GET_SEAT,
     promise: api.get(`/seats/${id}`),
   }),
+  //
   loadMovies: () => ({
     type: LOAD_MOVIES.PENDING,
-    name: 'kkk',
+  }),
+  loadMovieDetail: id => ({
+    type: LOAD_MOVIE_DETAIL.PENDING,
+    id,
+  }),
+  loadSeats: id => ({
+    type: LOAD_SEATS.PENDING,
+    id,
   }),
 };
