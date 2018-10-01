@@ -23,7 +23,7 @@ Running on port 3000 (Redux devtool is allowed by using chrome extension)
 ```
 yarn test
 ```
-*Note:* Make sure you are running dev server on port 3000
+*Note:* Make sure you are running then dev server on the port 3000
 
 ## Deploy
 

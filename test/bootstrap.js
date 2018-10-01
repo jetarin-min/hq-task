@@ -12,7 +12,7 @@ const opts = {
   timeout: 15000,
 };
 
-console.log('Please make sure that you are running the dev server on port 3000 (yarn dev)');
+console.log('Please make sure that you are running the dev server on the port 3000 (yarn dev)');
 
 before(async () => {
   global.expect = expect;

@@ -15,7 +15,7 @@ const Title = styled.h1`
 class Home extends React.Component {
   static async getInitialProps(props) {
     const { store, isServer } = props.ctx;
-    store.dispatch(actions.loadMovies());
+    await store.dispatch(actions.loadMovies());
     return { isServer };
   }
 

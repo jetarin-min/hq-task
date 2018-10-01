@@ -4,12 +4,12 @@ import api from '../../utils/api';
 import { LOAD_MOVIES, LOAD_MOVIE_DETAIL, LOAD_SEATS, PURCHASE_TICKET } from '../reducers/movie';
 import { actions as appActions } from '../reducers/app';
 
-export function* loadMovies() {
+export function* loadMovies({ meta }) {
   try {
     const res = yield call(api.get, '/movies');
-    yield put({ type: LOAD_MOVIES.RESOLVED, data: res.data });
+    yield put({ type: LOAD_MOVIES.RESOLVED, data: res.data, meta });
   } catch (error) {
-    yield put({ type: LOAD_MOVIES.REJECTED, error: error.message });
+    yield put({ type: LOAD_MOVIES.REJECTED, error: true, meta });
   }
 }
 

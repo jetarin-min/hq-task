@@ -102,6 +102,9 @@ export default reducer;
 export const actions = {
   loadMovies: () => ({
     type: LOAD_MOVIES.PENDING,
+    meta: {
+      thunk: true,
+    },
   }),
   loadMovieDetail: id => ({
     type: LOAD_MOVIE_DETAIL.PENDING,

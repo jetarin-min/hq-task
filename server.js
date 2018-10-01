@@ -18,16 +18,6 @@ app.prepare()
       app.render(req, res, '/movie', { ...req.query, id: req.params.id })
     ));
 
-    // server.get('/products', (req, res) => {
-    //   return app.render(req, res, '/products', req.query);
-    // });
-
-    // server.get('/paper/:slug', (req, res) => {
-    //   return app.render(req, res, '/paperDetail', { ...req.query, slug: req.params.slug });
-    // });
-    // server.get('/paper', (req, res) => {
-    //   return app.render(req, res, '/paper', req.query);
-    // });
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(port, (err) => {
