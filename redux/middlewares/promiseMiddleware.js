@@ -1,6 +1,7 @@
 export default () => next => action => { // Deprecated
   if (!action.promise) {
     return next(action);
+    // test
   }
   next({
     ...action,
