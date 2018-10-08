@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 import { actions } from '../redux/reducers/movie';
 
-import Row from '../Components/Row';
+import Row from '~/Components/Row';
 import { Inner } from '../Components/Global';
 
 const Title = styled.h1`
